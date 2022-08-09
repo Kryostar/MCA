@@ -6,7 +6,7 @@ class outerclass {
 	}
 }
 
-public class nestedclass {
+public class nested {
 	public static void main(String[] args) {
 		outerclass a = new outerclass();
 		outerclass.InnerClass b = a.new InnerClass();

@@ -7,8 +7,8 @@ public class q18 {
 	private static final int BUFFER_SIZE = 4096;
 
 	public static void main(String[] args) {
-		String inputFile = "C:/Users/1kryo/Documents/GitHub/MCA-Sem-1/MCA-Sem1/PS-Upgrade.txt";
-		String outputFile = "C:/Users/1kryo/Documents/GitHub/MCA-Sem-1/MCA-Sem1/OOPS_lab/out.txt";
+		String inputFile = "C:/Users/1kryo/Documents/GitHub/MCA/MCA-Sem1/PS-Upgrade.txt";
+		String outputFile = "C:/Users/1kryo/Documents/GitHub/MCA/MCA-Sem1/OOPS_lab/out.txt";
 
 		try (
 				InputStream inputStream = new FileInputStream(inputFile);
