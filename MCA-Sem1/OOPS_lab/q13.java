@@ -11,8 +11,9 @@ class q13 {
 		System.out.print("\033[H\033[2J");
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter the number of students:");
-		int size = sc.nextInt();
-		Student[] arr = new Student[size];
+		// int size = sc.nextInt();
+		int size;
+		Student[] arr = new Student[size = sc.nextInt()];
 		for (int i = 0; i < size; i++) {
 			int x = i + 1;
 			System.out.print("(" + x + ") Enter Student ID:");
@@ -24,7 +25,7 @@ class q13 {
 			arr[i] = new Student(a, n);
 		}
 		sc.close();
-		System.out.print("\033[H\033[2J");
+		// System.out.print("\033[H\033[2J");
 		System.out.print("Displaying the Student details:\n");
 		for (int i = 0; i < size; i++) {
 			arr[i].display();

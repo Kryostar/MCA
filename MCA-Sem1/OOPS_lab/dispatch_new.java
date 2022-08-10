@@ -1,21 +1,20 @@
-
 public class dispatch_new {
 	public static void main(String[] args) {
-		Animal a = new Animal();
-		Dog b = new Dog();
+		A a = new A();
+		A b = new B();
 		a.move();
 		b.move();
 	}
 }
 
-class Animal {
+class A {
 	public void move() {
-		System.out.println("Animal");
+		System.out.println("A");
 	}
 }
 
-class Dog extends Animal {
+class B extends A {
 	public void move() {
-		System.out.println("Dog");
+		System.out.println("B");
 	}
 }
