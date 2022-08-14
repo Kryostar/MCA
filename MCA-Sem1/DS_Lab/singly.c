@@ -1,113 +1,137 @@
-#include <stdio.h>
-#include <malloc.h>
-#include <stdlib.h>
-struct node {
-	int value;
-	struct node* next;
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node* link;
 };
-void insert();
-void display();
-void delete();
-int count();
-typedef struct node DATA_NODE;
-DATA_NODE* head_node, * first_node, * temp_node = 0, * prev_node, next_node;
-int data;
-int main() {
-	system("cls");
-	int option = 0;
-	printf("Singly Linked List Example - All Operations\n");
-	while (option < 5) {
-		printf("\nOptions\n");
-		printf("1 : Insert into Linked List \n2 : Delete from Linked List \n3 : Display Linked List\n4 : Count Linked List\n5 : Exit()\nEnter your option:");
-		scanf("%d", &option);
-		system("cls");
-		switch (option) {
-		case 1:
-			insert();
+struct node* root = NULL;
+int len;
+
+void insert(void);
+int length(void);
+void display(void);
+void delete(void);
+void main()
+{
+	int ch;
+	while (1)
+	{
+		printf("singly linked list:\n");
+		printf("1.insert\n");
+		printf("2.length\n");
+		printf("3.display\n");
+		printf("4.delete\n");
+		printf("5.exit\n");
+
+
+		printf("enter your choice:");
+		scanf("%d", &ch);
+
+		switch (ch)
+		{
+		case 1: insert();
 			break;
-		case 2:
-			delete();
+		case 2:len = length();
+			printf("Length :%d\n\n", len);
 			break;
-		case 3:
-			display();
+		case 3:display();
 			break;
-		case 4:
-			count();
+		case 4:delete();
 			break;
-		default:
-			break;
+		case 5:exit(0);
+		default:printf("invalid input\n\n");
 		}
 	}
-	return 0;
 }
-void insert() {
-	printf("\nEnter Element for Insert Linked List : \n");
-	scanf("%d", &data);
-	temp_node = (DATA_NODE*)malloc(sizeof(DATA_NODE));
-	temp_node->value = data;
-	if (first_node == 0) {
-		first_node = temp_node;
-	}
-	else {
-		head_node->next = temp_node;
-	}
-	temp_node->next = 0;
-	head_node = temp_node;
-	fflush(stdin);
-}
-void delete() {
-	int countvalue, pos, i = 0;
-	countvalue = count();
-	temp_node = first_node;
-	printf("\nDisplay Linked List : \n");
-	printf("\nEnter Position for Delete Element : \n");
-	scanf("%d", &pos);
-	if (pos > 0 && pos <= countvalue) {
-		if (pos == 1) {
-			temp_node = temp_node->next;
-			first_node = temp_node;
-			printf("\nDeleted Successfully \n\n");
-		}
-		else {
-			while (temp_node != 0) {
-				if (i == (pos - 1)) {
-					prev_node->next = temp_node->next;
-					if (i == (countvalue - 1))
-					{
-						head_node = prev_node;
-					}
-					printf("\nDeleted Successfully \n\n");
-					break;
-				}
-				else {
-					i++;
-					prev_node = temp_node;
-					temp_node = temp_node->next;
-				}
-			}
-		}
+
+void insert()
+{
+	struct node* temp;
+	temp = (struct node*)malloc(sizeof(struct node));
+	printf("enter node data :");
+	scanf("%d", &temp->data);
+	temp->link = NULL;
+	if (root == NULL)
+	{
+		root = temp;
 	}
 	else
-		printf("\nInvalid Position \n\n");
-}
-void display() {
-	int count = 0;
-	temp_node = first_node;
-	printf("\nDisplay Linked List : \n");
-	while (temp_node != 0) {
-		printf(" %d ", temp_node->value);
-		count++;
-		temp_node = temp_node->next;
+	{
+		struct node* p;
+		p = root;
+		while (p->link != NULL)
+		{
+			p = p->link;
+		}
+		p->link = temp;
 	}
-	printf("\nNo Of Items In Linked List : %d\n", count);
 }
-int count() {
+
+int length()
+{
 	int count = 0;
-	temp_node = first_node;
-	while (temp_node != 0) {
+	struct node* temp;
+	temp = root;
+
+	while (temp != NULL)
+	{
 		count++;
-		temp_node = temp_node->next;
+		temp = temp->link;
+
 	}
-	printf("\nNo Of Items In Linked List : %d\n", count);
 	return count;
+}
+
+void display()
+{
+	struct node* temp;
+	temp = root;
+	if (temp == NULL)
+	{
+		printf("list is empty\n\n");
+	}
+	else
+	{
+		while (temp != NULL)
+		{
+			printf("%d\t", temp->data);
+			temp = temp->link;
+		}
+		printf("\n\n");
+	}
+}
+
+void delete(void)
+{
+	struct node* temp;
+	int loc;
+	printf("enter location to delete:");
+	scanf("%d", &loc);
+	if (loc > length())
+	{
+		printf("invalid location\n");
+	}
+	else if (loc == 1)
+	{
+		temp = root;
+		root = temp->link;
+		temp->link = NULL;
+		free(temp);
+	}
+	else
+	{
+		struct node* p = root, * q; // p and q are temp
+		int i = 1;
+		while (i < loc - 1)
+		{
+			p = p->link;
+			i++;
+		}
+		q = p->link;
+		p->link = q->link; // NULL
+		q->link = NULL;
+		free(q);
+	}
 }

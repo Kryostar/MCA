@@ -25,7 +25,7 @@ int main() {
 	printf("\nAfter Concatenation, the String is: %s", strcat(str, cat));
 
 	// 3. Check if substring is present, and Extract it
-	while (str[i] != '\0') //TODO:Change all to function
+	while (str[i] != '\0') //TODO:Change to function
 	{
 		if (str[i] == substr[j])
 		{
@@ -48,7 +48,7 @@ int main() {
 	}
 
 	// 4. Replace
-	if (substr[j] == '\0' && flag)
+	if (substr[j] == '\0' && flag) //TODO: Change to function
 	{
 		for (i = 0; i < start; i++)
 			output[i] = str[i];

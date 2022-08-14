@@ -14,9 +14,9 @@ struct queue
 // Utility function to initialize a queue
 /**
  * It creates a new queue with a given size.
- * 
+ *
  * @param size The size of the queue.
- * 
+ *
  * @return A pointer to a queue.
  */
 struct queue* newQueue(int size)
@@ -50,7 +50,6 @@ int front(struct queue* pt)
 		//exit(EXIT_FAILURE);
 		return;
 	}
-
 	return pt->items[pt->front];
 }
 int rear(struct queue* pt)
@@ -67,13 +66,10 @@ void enqueue(struct queue* pt, int x)
 		// exit(EXIT_FAILURE);
 		return;
 	}
-
 	printf("Inserting %d\t", x);
-
 	pt->rear = (pt->rear + 1) % pt->maxsize;    // circular queue
 	pt->items[pt->rear] = x;
 	pt->size++;
-
 	printf("front = %d, rear = %d\n", pt->front, pt->rear);
 }
 
@@ -86,12 +82,9 @@ int dequeue(struct queue* pt)
 		// exit(EXIT_FAILURE);
 		return;
 	}
-
 	printf("Removing %d\t", front(pt));
-
 	pt->front = (pt->front + 1) % pt->maxsize;  // circular queue
 	pt->size--;
-
 	printf("front = %d, rear = %d\n", pt->front, pt->rear);
 }
 

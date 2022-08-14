@@ -20,7 +20,7 @@ void main()
 	struct node* p1head, * p2head, * p3head;
 	p1head = p2head = NULL;
 
-	// Inputing the first polynomial..
+	// Enter the first polynomial..
 	system("cls");
 
 	printf("Enter the no of terms of polynomial 1: ");
@@ -32,7 +32,7 @@ void main()
 		p1head = insertpoly(p1head, a, b);
 	}
 
-	// Inputing the second polynomial..
+	// Enter the second polynomial..
 	system("cls");
 
 	printf("\nEnter the no of terms of polynomial 2: ");
@@ -44,12 +44,12 @@ void main()
 		p2head = insertpoly(p2head, a, b);
 	}
 
-	//Performing Addition..
+	// Performing Addition..
 	system("cls");
 
 	p3head = polyaddition(p1head, p2head);
 
-	//Displaying the polynomial..
+	// Displaying the polynomial..
 
 	printf("\nThe polynomial 1 is: ");
 	display(p1head);

@@ -11,6 +11,12 @@ class file {
 	 * delete files
 	 */
 	public static void main(String[] args) {
+		try {
+			Runtime.getRuntime().exec("cls");
+			System.out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.print("Menu:\n1.Create File\n2.Read File\n3.Write to File\n4.Delete Files\n0.Exit\nEnter Choice: ");
 		Scanner sc = new Scanner(System.in);
 		int Choice = sc.nextInt();
