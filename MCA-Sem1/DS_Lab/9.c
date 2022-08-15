@@ -13,11 +13,6 @@ int main() {
 	printf("Enter the string to replace:\n");
 	gets(replace);
 
-	/*str[strlen(str)] = '\0';
-	cat[strlen(cat)] = '\0';
-	substr[strlen(substr)] = '\0';
-	replace[strlen(replace)] = '\0';*/
-
 	// 1. Display Length Of String
 	printf("\nLength of '%s' is %d", str, strlen(str));
 
