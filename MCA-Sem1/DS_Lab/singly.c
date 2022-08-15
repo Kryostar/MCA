@@ -32,17 +32,15 @@ void insert()
 	}
 }
 
-int length()
+int length() // ? insertion at start and middle
 {
 	int count = 0;
 	struct node* temp;
 	temp = root;
-
 	while (temp != NULL)
 	{
 		count++;
 		temp = temp->link;
-
 	}
 	return count;
 }
@@ -110,11 +108,8 @@ void main()
 		printf("3.display\n");
 		printf("4.delete\n");
 		printf("5.exit\n");
-
-
 		printf("enter your choice:");
 		scanf("%d", &ch);
-
 		switch (ch)
 		{
 		case 1: insert();
@@ -127,7 +122,9 @@ void main()
 		case 4:delete();
 			break;
 		case 5:exit(0);
+			break;
 		default:printf("invalid input\n\n");
+			break;
 		}
 	}
 }

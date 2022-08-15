@@ -14,8 +14,7 @@ void push()
 	{
 		printf("Enter element to push:");
 		scanf("%d", &val);
-		top = top + 1;
-		stack[top] = val;
+		stack[++top] = val;
 	}
 	printf("\n");
 }
@@ -29,8 +28,7 @@ void pop()
 	}
 	else
 	{
-		printf("The Deleted element is %d", stack[top]);
-		top = top - 1;
+		printf("The Deleted element is %d", stack[top--]);
 	}
 	printf("\n");
 }
@@ -58,7 +56,7 @@ void main()
 	system("cls");
 	do
 	{
-		printf("Stack Operations\n1.Push\n2.Pop\n3.Display\n4.Exit\nEnter Opertaion: ");
+		printf("Stack Operations\n1.Push\n2.Pop\n3.Display\n4.Exit\nEnter Operation: ");
 		scanf("%d", &ch);
 		switch (ch)
 		{

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #define max 10
 
-int a[11];
-int b[10];
+int a[max + 1];
+int b[max];
 
 /**
  * If the array is not empty, then recursively do
@@ -23,8 +23,6 @@ void sort(int low, int high) {
 		sort(mid + 1, high);
 		merging(low, mid, high);
 	}
-	else
-		return;
 }
 
 /**
@@ -55,7 +53,7 @@ void merging(int low, int mid, int high) {
 
 void main() {
 	system("cls");
-	printf("Enter 10 elements:\n");
+	printf("Enter %d elements:\n", max);
 	for (int i = 0;i < 10;i++)
 		scanf("%d", &a[i]);
 	printf("List before sorting\n");

@@ -29,8 +29,8 @@ void main() {
 	{
 		if (isdigit(*e))
 		{
-			// printf("%d ",*e); /* printing the numbers in their ASCII values */
-			num = *e - 48; /* 48 is the ASCII value of char '0', we are converting character to digit */
+			// printf("%d ",*e);	// * printing the numbers in their ASCII values
+			num = *e - 48;				// * 48 is the ASCII value of char '0', we are converting character to digit
 			push(num);
 		}
 		else
