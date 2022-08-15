@@ -9,43 +9,6 @@ struct node
 struct node* root = NULL;
 int len;
 
-void insert(void);
-int length(void);
-void display(void);
-void delete(void);
-void main()
-{
-	int ch;
-	while (1)
-	{
-		printf("singly linked list:\n");
-		printf("1.insert\n");
-		printf("2.length\n");
-		printf("3.display\n");
-		printf("4.delete\n");
-		printf("5.exit\n");
-
-
-		printf("enter your choice:");
-		scanf("%d", &ch);
-
-		switch (ch)
-		{
-		case 1: insert();
-			break;
-		case 2:len = length();
-			printf("Length :%d\n\n", len);
-			break;
-		case 3:display();
-			break;
-		case 4:delete();
-			break;
-		case 5:exit(0);
-		default:printf("invalid input\n\n");
-		}
-	}
-}
-
 void insert()
 {
 	struct node* temp;
@@ -133,5 +96,38 @@ void delete(void)
 		p->link = q->link; // NULL
 		q->link = NULL;
 		free(q);
+	}
+}
+
+void main()
+{
+	int ch;
+	while (1)
+	{
+		printf("singly linked list:\n");
+		printf("1.insert\n");
+		printf("2.length\n");
+		printf("3.display\n");
+		printf("4.delete\n");
+		printf("5.exit\n");
+
+
+		printf("enter your choice:");
+		scanf("%d", &ch);
+
+		switch (ch)
+		{
+		case 1: insert();
+			break;
+		case 2:len = length();
+			printf("Length :%d\n\n", len);
+			break;
+		case 3:display();
+			break;
+		case 4:delete();
+			break;
+		case 5:exit(0);
+		default:printf("invalid input\n\n");
+		}
 	}
 }
