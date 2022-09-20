@@ -1,11 +1,12 @@
-wordfile="$1"
-wordlist=($(cat "$wordfile"))
-shift
-
-echo "Word Count program : "
-for file in "$@"; do
-	for word in "${wordlist[@]}"; do
-		echo "$file: $word:" $(grep -o "\b${word}\b" "$file" | wc -l) # My way
-		# echo "$file: $word:" $(tr ' ' '\n' <"$file" | grep -c "$word")   # Your way
+if [ $# -lt 2 ]; then
+	echo -e "Insufficient Arguments (min 2)\nUsage: \"bash p3.sh text1.txt text2.txt\""
+else
+	wordfile="$1"
+	wordlist=($(cat "$wordfile" | tr -s [:space:] \\n <$wordfile | sort | uniq))
+	shift
+	for file in "$@"; do
+		for word in "${wordlist[@]}"; do
+			echo "$file: $word:" $(grep -io "\b${word}\b" "$file" | wc -l)
+		done
 	done
-done
+fi
