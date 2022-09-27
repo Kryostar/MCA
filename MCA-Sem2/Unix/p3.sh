@@ -1,5 +1,6 @@
+#!/bin/bash
 if [ $# -lt 2 ]; then
-	echo -e "Insufficient Arguments (min 2)\nUsage: \"bash p3.sh text1.txt text2.txt\""
+	echo -e "Insufficient Arguements (min 2)\nUsage: \"bash p3.sh text1.txt text2.txt\""
 else
 	wordfile="$1"
 	wordlist=($(cat "$wordfile" | tr -s [:space:] \\n <$wordfile | sort | uniq))
