@@ -1,4 +1,4 @@
-tempCodeRunnerFile.java
+tempCodeRunnerFile.*
 .vscode
 *.txt
 *.class
@@ -7,3 +7,5 @@ tempCodeRunnerFile.java
 MCA-Sem2/Unix/wordlist2.txt
 MCA-Sem2/Unix/wordlist.txt
 *.out
+*.log
+!part_*.txt

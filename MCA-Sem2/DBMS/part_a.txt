@@ -1,0 +1,214 @@
+1. Create the tables:
+	1.1. CREATE TABLE department (
+			dname varchar(255),
+			departno int,
+			mgrssn int,
+			mgrstartdate date,
+			PRIMARY KEY (departno)
+			);
+  1.2.  CREATE TABLE employee (
+			fname varchar(255) NOT NULL,
+			lname varchar(255) NOT NULL,
+			ssn int PRIMARY KEY,
+			bdate date NOT NULL,
+			address longtext,
+			sex char,
+			salary float(10,2) NOT NULL,
+			mgrssn int,
+			superssn int,
+			departno int,
+			FOREIGN KEY (departno) REFERENCES department(departno)
+		);
+	1.3. CREATE TABLE dept_locations (
+			departno int,
+			depart_location varchar(255),
+			FOREIGN KEY (departno) REFERENCES department(departno)
+		);
+	1.4. CREATE TABLE project (
+			pname varchar(255),
+			pnumber int,
+			plocation varchar(255),
+			departno int,
+			PRIMARY KEY (pnumber),
+			FOREIGN KEY (departno) REFERENCES department(departno)
+		);
+	1.5. CREATE TABLE works_on (
+			ssn int,
+			pnumber int,
+			hours float,
+			FOREIGN KEY (ssn) REFERENCES employee(ssn),
+			FOREIGN KEY (pnumber) REFERENCES project(pnumber)
+		);
+	1.6. CREATE TABLE dependent (
+			ssn int,
+			dependent_name varchar(255),
+			name varchar(255),
+			sex char,
+			bdate date,
+			relationship varchar(255),
+			FOREIGN KEY (ssn) REFERENCES employee(ssn)
+		);
+2. perform the following:
+	2.1. view all databases
+			show databases;
+	2.2. create database
+			create database employee;
+	2.3. view all tables
+			show tables;
+	2.4. create tables
+			create table table_name;
+	2.5.
+		2.5.1. inserting
+			2.5.1.1. INSERT INTO department (dname, departno, mgrssn, mgrstartdate)
+							VALUES ('Sales', 1, 987654321, '2000-01-01'),
+										('Marketing', 2, 123456789, '2001-02-01'),
+										('Engineering', 3, 345678901, '2002-03-01');
+			2.5.1.2. INSERT INTO employee (fname, lname, ssn, bdate, address, sex, salary, mgrssn, superssn, departno)
+							VALUES ('John', 'Doe', 123456789, '1998-01-01', '123 Main St', 'M', 50000.00, 987654321, 111111111, 1),
+										('Jane', 'Doe', 234567890, '1997-02-01', '456 Main St', 'F', 45000.00, 987654321, 111111111, 1),
+										('Bob', 'Smith', 345678901, '1996-03-01', '789 Main St', 'M', 40000.00, 123456789, 234567890, 2),
+										('Alice', 'Smith', 456789012, '1995-04-01', '321 Main St', 'F', 35000.00, 123456789, 234567890, 2),
+										('Sam', 'Johnson', 567890123, '1994-05-01', '654 Main St', 'M', 30000.00, 345678901, 456789012, 3);
+			2.5.1.3. INSERT INTO dept_locations (departno, depart_location)
+							VALUES (1, 'New York'),
+										(2, 'Chicago'),
+										(3, 'San Francisco');
+			2.5.1.4.	INSERT INTO project (pname, pnumber, plocation, departno)
+							VALUES ('Project 1', 1, 'New York', 1),
+										('Project 2', 2, 'Chicago', 2),
+										('Project 3', 3, 'San Francisco', 3);
+			2.5.1.5. INSERT INTO works_on (ssn, pnumber, hours)
+							VALUES (123456789, 1, 40),
+										(234567890, 1, 35),
+										(345678901, 2, 30),
+										(456789012, 2, 25),
+										(567890123, 3, 20);
+			2.5.1.6. INSERT INTO dependent (ssn, dependent_name, name, sex, bdate, relationship)
+							VALUES (123456789, 'Dependent 1', 'Dependent Name 1', 'M', '2000-01-01', 'Spouse'),
+										(234567890, 'Dependent 2', 'Dependent Name 2', 'F', '2001-02-01', 'Child'),
+										(345678901, 'Dependent 3', 'Dependent Name 3', 'M', '2002-03-01', 'Child'),
+										(456789012, 'Dependent 4', 'Dependent Name 4', 'F', '2003-04-01', 'Spouse'),
+										(567890123, 'Dependent 5', 'Dependent Name 5', 'M', '2004-05-01', 'Child');
+		2.5.2. updating
+			2.5.2.1. UPDATE employee
+							SET salary = 55000.00
+							WHERE ssn = 123456789;
+		2.5.3. deleting
+			2.5.3.1. DELETE FROM employee
+							WHERE ssn = 123456789;
+	2.6. saving (commit)
+			START TRANSACTION;
+			UPDATE employee
+			SET salary = 55000.00
+			WHERE ssn = 123456789;
+			COMMIT;
+	2.7. deleting (rollback)
+			START TRANSACTION;
+			UPDATE employee
+			SET salary = 55000.00
+			WHERE ssn = 123456789;
+			ROLLBACK;
+
+4. perfrom simpele queries
+	4.1. To retrieve all records from the "employee" table:
+		SELECT * FROM employee;
+	4.2. To retrieve the first and last names and salary of all employees:
+		SELECT fname, lname, salary FROM employee;
+	4.3. To retrieve the name and location of all departments:
+		SELECT dname, depart_location FROM department
+		JOIN dept_locations USING (departno);
+	4.4. To retrieve the names of all projects in the Engineering department:
+		SELECT pname FROM project
+		WHERE departno = (SELECT departno FROM department WHERE dname = 'Engineering');
+	4.5. To retrieve the names and hours worked of all employees who have worked on Project 1:
+		SELECT fname, lname, hours FROM employee
+		JOIN works_on USING (ssn)
+		WHERE pnumber = 1;
+	4.6. queries with aggregate functions (use the simple version from lab notes)
+		SELECT dname AS 'Department', COUNT(*) AS 'Number of Employees', MAX(salary) AS 'Maximum Salary', AVG(salary) AS 'Average Salary', SUM(hours) AS 'Total Hours Worked' FROM employee
+		JOIN department USING (departno)
+		JOIN works_on USING (ssn)
+		GROUP BY dname;
+	4.7. queries with aggregate functions plus GROUP BY and HAVING clause
+		SELECT dname AS 'Department', COUNT(*) AS 'Number of Employees', MAX(salary) AS 'Maximum Salary', AVG(salary) AS 'Average Salary', SUM(hours) AS 'Total Hours Worked' FROM employee
+		JOIN department USING (departno)
+		JOIN works_on USING (ssn)
+		GROUP BY dname
+		HAVING SUM(hours) > 30;
+
+5. Execute the following queries:
+	5.1. output if every employee from a specific department had their salary increased by 10%
+			simple:
+				UPDATE employee
+				SET salary = salary * 1.1
+				WHERE departno = 2;
+			
+			complicated: (uses a subquery to identify the department that you want to update)
+				UPDATE employee
+				SET salary = salary * 1.1
+				WHERE departno IN (SELECT departno FROM dept_locations WHERE depart_location = 'Chicago');
+	5.2. Display Sum, max, min and avg of all salary
+		5.2.1. For a specific department: 
+			SELECT SUM(salary) as 'Sum', MAX(salary) as 'Max Salary', MIN(salary) as 'Min Salary', AVG(salary) as 'Avg Salary', COUNT(*) AS 'Number of Employees' from employee
+			JOIN department USING (departno)
+			WHERE dname='Sales';
+		5.2.2. For all departments:
+			SELECT dname AS 'Dept. Name', departno AS 'Dept. No.', COUNT(*) AS 'No. of Employees', SUM(salary) as 'Total Salary', MAX(salary) as 'Max Salary', MIN(salary) as 'Min Salary', ROUND(AVG(salary),2) as 'Avg Salary' FROM employee
+			JOIN department USING (departno)
+			GROUP BY departno;
+
+6. Execute the following queries
+	6.1. Name of all employees working for a specific department
+		SELECT fname, lname FROM employee
+		WHERE EXISTS (SELECT * FROM department WHERE departno = 2 AND employee.departno = department.departno);
+	6.2. display department name and no of employees in each department which have alteast 2 employees
+		SELECT dname as 'Dept. Name', COUNT(*) as 'No. of Employees' FROM employee
+    JOIN department USING (departno)
+		GROUP BY dname
+		HAVING COUNT(*) >= 2;
+
+7. Execute the following queries
+	7.1. for each project, retrieve project name, Number and the Number of employees working on that project.
+		SELECT pname, pnumber, COUNT(*) AS 'No. Of Employees working on' from works_on
+    JOIN project USING (pnumber)
+    GROUP BY pnumber;
+	7.2. retrieve name of employees born in the 90's
+		SELECT fname, lname, bdate FROM employee 
+    WHERE bdate LIKE '199%';
+
+8. retrieve dept. no and number of employees with salary more than 40k, if department has more than x employees in it.
+	SELECT departno AS 'Dept. Number', COUNT(*) AS 'No. of Employees', salary FROM employee
+	WHERE salary > 40000
+	GROUP BY departno
+	HAVING COUNT(*) > 1;
+
+9. for each project on on which more than one employees work, retrieve the project number, project name and the number of employees who work on that project.
+	SELECT pnumber AS 'Project Number', pname AS 'Project Name', COUNT(*) AS 'Number of Employees' FROM works_on
+	JOIN project USING (pnumber)
+	GROUP BY pnumber, pname
+	HAVING COUNT(*) > 1;
+
+10. Views
+	10.1. Creating view
+		CREATE VIEW employee_view AS
+		SELECT fname AS 'First Name', lname AS 'Last Name', dname AS 'Department' FROM employee
+		JOIN department USING (departno);
+	10.2. Dropping view
+		DROP VIEW employee_view;
+	10.3. Select from view;
+		SELECT * FROM employee_view;
+
+SELECT Author_name, COUNT(*) AS 'Books Written' from library
+GROUP BY Author_name
+HAVING COUNT(*) > 1;
+
+		insert into Library values
+		(101,'Ram','MCA',01,'john','Y','data stuctures'),
+		(102,'Shyam','MBA',02,'doe','N','Economics'),
+		(103,'Shashi','MCA',03,'jacob','N','Java'),
+		(104,'Sharon','MCA',04,'jacob','N','C++'),
+		(105,'Raju','MBA',05,'doe','Y','business');
+
+SELECT Book_name from library
+GROUP BY Author_name
+HAVING COUNT(*) > 1
