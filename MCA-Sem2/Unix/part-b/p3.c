@@ -11,12 +11,14 @@ int main(int argc, char const* argv[])
 	if (pid < 0) {
 		exit(1);
 	}
-	else if (pid == 0) {
-		printf("Child Process, PID: %d\n", getpid());
+	if (pid == 0) {
+		printf("Child Process, PID:%d\nParent's PID:%d\n", getpid(), getppid());
 		exit(0);
 	}
 	else {
-		printf("Parent Process, PID: %d\n", getpid());
+		sleep(1);
+		printf("Parent Process, PID:%d\nChild's PID:%d\n", getpid(), pid);
+		system("ps");
 		exit(0);
 	}
 	return 0;

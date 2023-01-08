@@ -5,17 +5,14 @@
 
 #define BUFFER_SIZE 100
 
-int main(int argc, char* argv[]) {
+int main() {
 	int fd[2];  // File descriptor for the pipe
 	pid_t pid;  // Process ID
 	char buffer[BUFFER_SIZE];
-
 	// Create the pipe
 	pipe(fd);
-
 	// Create a child process
 	pid = fork();
-
 	if (pid == 0) {  // Child process
 		// Write to the write end of the pipe
 		strcpy(buffer, "Hello, world!");

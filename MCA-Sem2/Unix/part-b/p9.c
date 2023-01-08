@@ -16,7 +16,7 @@ int main() {
 	int shmid = shmget(key, SHM_SIZE, 0666 | IPC_CREAT);
 
 	// Attach the shared memory segment to the current process
-	char* str = (char*)shmat(shmid, (void*)0, 0);
+	char* str = (char*)shmat(shmid, NULL, 0);
 
 	// If this is the parent process
 	if (fork() == 0) {

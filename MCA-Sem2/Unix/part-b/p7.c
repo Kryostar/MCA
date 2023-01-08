@@ -5,26 +5,12 @@
 #include <fcntl.h>
 
 int main() {
-	// Create a semaphore
-	sem_t* sem = sem_open("/my_semaphore", O_CREAT, 0644, 1);
-
-	// Lock the semaphore
-	sem_wait(sem);
-
-	// Open a file
-	FILE* f = fopen("file.txt", "w");
-
-	// Write to the file
-	fprintf(f, "Writing to file...\n");
-
-	// Close the file
-	fclose(f);
-
-	// Unlock the semaphore
-	sem_post(sem);
-
-	// Close the semaphore
-	sem_close(sem);
-
+	sem_t* sem = sem_open("/my_semaphore", O_CREAT, 0644, 1); // Create a semaphore
+	sem_wait(sem); // Lock the semaphore
+	FILE* f = fopen("file.txt", "w"); // Open a file
+	fprintf(f, "Writing to file...\n"); // Write to the file
+	fclose(f); // Close the file
+	sem_post(sem); // Unlock the semaphore
+	sem_close(sem); // Close the semaphore
 	return 0;
 }

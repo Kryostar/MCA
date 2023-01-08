@@ -6,11 +6,12 @@
 
 int main() {
 	// Create a file
-	int fd = creat("test.txt", 0644);
+	int fd = creat("test.txt", O_RDWR | S_IRUSR | S_IWUSR);
 	if (fd < 0) {
 		perror("Error creating file");
 		return 1;
 	}
+	printf("File successfully created\n");
 
 	// Write some data to the file
 	char* data = "Hello, world!";
@@ -19,7 +20,7 @@ int main() {
 		perror("Error writing to file");
 		return 1;
 	}
-
+	printf("File successfully written on\n");
 	// Get the file's stats
 	struct stat file_stat;
 	int stat_result = fstat(fd, &file_stat);
@@ -32,6 +33,7 @@ int main() {
 
 	// Seek to the beginning of the file
 	off_t offset = lseek(fd, 0, SEEK_SET);
+
 	if (offset < 0) {
 		perror("Error seeking in file");
 		return 1;
